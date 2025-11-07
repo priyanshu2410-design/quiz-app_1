@@ -1,0 +1,35 @@
+from django.contrib import admin
+from .models import Category, Quiz, Question, Option, Attempt, Answer
+
+
+# Register your models here.
+# Inline for adding options to a question directly
+class OptionInline(admin.TabularInline):
+    model = Option
+    extra = 2 # minimum 2 options
+    max_num = 4 # maximum 4 options
+class QuestionAdmin(admin.ModelAdmin):
+    list_display = ('text', 'quiz')
+    list_filter = ('quiz',)
+    search_fields = ('text', 'quiz__title')
+    inlines = [OptionInline]
+
+class QuizAdmin(admin.ModelAdmin):
+    list_display = ('title', 'category', 'created_at')
+    list_filter = ('category',)
+    search_fields = ('title', 'category__name')
+
+class AttemptAdmin(admin.ModelAdmin):
+    list_display = ('user', 'quiz', 'score', 'total', 'completed_at')
+    list_filter = ('quiz', 'user',)
+    search_fields = ('user__username', 'quiz__title')
+
+class AnswerAdmin(admin.ModelAdmin):
+    list_display = ('attempt', 'question', 'selected_option')
+
+
+admin.site.register(Category)
+admin.site.register(Quiz, QuizAdmin)
+admin.site.register(Question, QuestionAdmin)
+admin.site.register(Attempt, AttemptAdmin)
+admin.site.register(Answer, AnswerAdmin)

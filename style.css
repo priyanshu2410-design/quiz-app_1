@@ -1,0 +1,16 @@
+body {
+font-family: 'Segoe UI', sans-serif;
+padding: 0px;
+margin: 0px;
+background-color: #faf8f9;
+}
+
+.card {
+box-shadow: 0 0 10px rgba(0, 0, 0, 0.177);
+}
+
+.navbar-brand {
+font-weight: bold;
+font-size: 1.3rem;
+}
+
